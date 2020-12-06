@@ -1,3 +1,4 @@
+import os
 from tkinter import *
 
 root = Tk()
@@ -5,12 +6,19 @@ root.title("Notes")
 root.geometry("640x480")
 
 
-def open():
-    pass
+filename = "mynote.txt"
 
 
-def save():
-    pass
+def open_file():
+    if os.path.isfile(filename):
+        with open(filename, "r", encoding="utf8") as file:
+            txt.delete("1.0", END)
+            txt.insert(END, file.read())
+
+
+def save_file():
+    with open(filename, "w", encoding="utf8") as file:
+        file.write(txt.get("1.0", END))
 
 
 menu = Menu(root)
@@ -22,8 +30,8 @@ menu_view = Menu(menu, tearoff=0)
 menu_window = Menu(menu, tearoff=0)
 menu_help = Menu(menu, tearoff=0)
 
-menu_file.add_command(label="Open", command=open)
-menu_file.add_command(label="Save", command=save)
+menu_file.add_command(label="Open", command=open_file)
+menu_file.add_command(label="Save", command=save_file)
 menu_file.add_separator()
 menu_file.add_command(label="Close", command=root.quit)
 
