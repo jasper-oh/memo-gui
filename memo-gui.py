@@ -37,4 +37,14 @@ menu.add_cascade(label="Help", menu=menu_help)
 
 
 root.config(menu=menu)
+# scroll bar
+scrollbar = Scrollbar(root)
+scrollbar.pack(side="right", fill="y")
+
+# Writing Area
+txt = Text(root, yscrollcommand=scrollbar.set)
+txt.pack(side="left", fill="both", expand=True)
+
+scrollbar.config(command=txt.yview)
+
 root.mainloop()
